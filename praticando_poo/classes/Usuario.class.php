@@ -31,6 +31,27 @@
             }
         }
 
+        public function delete():bool
+        {
+            if($this->id)
+            {
+                $stmt = $this->prepare('DELETE FROM usuarios WHERE id = :id');
+
+                if($stmt->execute([':id' => $this->id]))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         public function update()
         {
             $stmt = $this->prepare('UPDATE usuarios SET cpf = :cpf, nome = :nome WHERE id = :id');
@@ -59,5 +80,14 @@
         public function getDados(int $id_usuario):array
         {
             return [];
+        }
+
+        public function getAll():array
+        {
+            $stmt = $this->prepare('SELECT * FROM usuarios');
+
+            $stmt->execute();
+
+            return $stmt->fetchAll();
         }
     }
