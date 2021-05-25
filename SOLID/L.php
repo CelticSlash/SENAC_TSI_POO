@@ -1,0 +1,2 @@
+<?php
+    //Substituição de Liskov
